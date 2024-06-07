@@ -22,6 +22,7 @@ You could help advance the growing field of bioinformatics and explore new metho
 Submissions are evaluated using a balanced logarithmic loss. The overall effect is such that each class is roughly equally important for the final score.
 
 Each observation is either of class 0 or of class 1. For each observation, you must submit a probability for each class. The formula is then:
+
 Log Loss=−1N0∑N0i=1y0ilogp0i−1N1∑N1i=1y1ilogp1i2
 
 where (N_{c}) is the number of observations of class (c), (\log) is the natural logarithm, (y_{c i}) is 1 if observation (i) belongs to class (c) and 0 otherwise, (p_{c i}) is the predicted probability that observation (i) belongs to class (c).
