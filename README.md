@@ -1,23 +1,29 @@
-# Rock, Paper, Scissors
+# ICR - Identifying Age-related Conditions
 
-# Description
-Rock, Paper, Scissors (sometimes called roshambo) has been a staple to settle playground disagreements or determine who gets to ride in the front seat on a road trip. The game is simple, with a balance of power. There are three options to choose from, each winning or losing to the other two. In a series of truly random games, each player would win, lose, and draw roughly one-third of games. But people are not truly random, which provides a fun opportunity for AI.
+# Goal of the competition
+The goal of this competition is to predict if a person has any of three medical conditions. You are being asked to predict if the person has one or more of any of the three medical conditions (Class 1), or none of the three medical conditions (Class 0). You will create a model trained on measurements of health characteristics.
 
-Studies have shown that a Rock, Paper, Scissors AI can consistently beat human opponents. With previous games as input, it studies patterns to understand a player’s tendencies. But what happens when we expand the simple “Best-of-3” game to be “Best-of-1000”? How well can artificial intelligence perform?
+To determine if someone has these medical conditions requires a long and intrusive process to collect information from patients. With predictive models, we can shorten this process and keep patient details private by collecting key characteristics relative to the conditions, then encoding these characteristics.
 
-In this simulation competition, you will create an AI to play against others in many rounds of this classic game. Can you find patterns to make yours win more often than it loses? It’s possible to greatly outperform a random player when the matches involve non-random agents. A strong AI can consistently beat predictable AI.
+Your work will help researchers discover the relationship between measurements of certain characteristics and potential patient conditions.
 
-This problem is fundamental to the fields of machine learning, artificial intelligence, and data compression. There are even potential applications in human psychology and hierarchical temporal memory. Warm up your hands and get ready to Rock, Paper, Scissors in this challenge.
+# Context
+They say age is just a number but a whole host of health issues come with aging. From heart disease and dementia to hearing loss and arthritis, aging is a risk factor for numerous diseases and complications. The growing field of bioinformatics includes research into interventions that can help slow and reverse biological aging and prevent major age-related ailments. Data science could have a role to play in developing new methods to solve problems with diverse data, even if the number of samples is small.
+
+Currently, models like XGBoost and random forest are used to predict medical conditions yet the models' performance is not good enough. Dealing with critical problems where lives are on the line, models need to make correct predictions reliably and consistently between different cases.
+
+Founded in 2015, competition host InVitro Cell Research, LLC (ICR) is a privately funded company focused on regenerative and preventive personalized medicine. Their offices and labs in the greater New York City area offer state-of-the-art research space. InVitro Cell Research's Scientists are what set them apart, helping guide and defining their mission of researching how to repair aging people fast.
+
+In this competition, you’ll work with measurements of health characteristic data to solve critical problems in bioinformatics. Based on minimal training, you’ll create a model to predict if a person has any of three medical conditions, with an aim to improve on existing methods.
+
+You could help advance the growing field of bioinformatics and explore new methods to solve complex problems with diverse data.
 
 # Evaluation
-Each day, your team is able to submit up to 5 agents (bots) to the competition. Each submission will play episodes (games) against other bots on the ladder that have a similar skill rating. Over time, skill ratings will go up with wins or down with losses. Every bot submitted will continue to play games until the end of the competition. On the leaderboard, only your best scoring bot will be shown, but you can track the progress of all of your submissions on your Submissions page.
+Submissions are evaluated using a balanced logarithmic loss. The overall effect is such that each class is roughly equally important for the final score.
 
-Each Submission has an estimated Skill Rating which is modeled by a Gaussian N(μ,σ2) where μ is the estimated skill and σ represents our uncertainty of that estimate which will decrease over time.
+Each observation is either of class 0 or of class 1. For each observation, you must submit a probability for each class. The formula is then:
+Log Loss=−1N0∑N0i=1y0ilogp0i−1N1∑N1i=1y1ilogp1i2
 
-When you upload a Submission, we first play a Validation Episode where that Submission plays against copies of itself to make sure it works properly. If the Episode fails, the Submission is marked as Error. Otherwise, we initialize the Submission with μ0=600 and it joins the pool of All Submissions for ongoing evaluation.
+where (N_{c}) is the number of observations of class (c), (\log) is the natural logarithm, (y_{c i}) is 1 if observation (i) belongs to class (c) and 0 otherwise, (p_{c i}) is the predicted probability that observation (i) belongs to class (c).
 
-We repeatedly run Episodes from the pool of All Submissions and try to pick Submissions with similar ratings for fair matches. We aim to run ~8 Episodes a day per Submission, with an additional slight rate increase for the newest-submitted Episodes to give you feedback faster.
-
-After an Episode finishes, we'll update the Rating estimate for all Submissions in that Episode. If one Submission won, we'll increase its μ and decrease its opponent's μ; if the result was a draw, then we'll move the two μ values closer towards their mean. The updates will have magnitude relative to the deviation from the expected result based on the previous μ values and also relative to each Submission's uncertainty σ. We also reduce the σ terms relative to the amount of information gained by the result. The score by which your bot wins or loses an Episode does not affect the skill rating updates.
-
-At the submission deadline, additional submissions will be locked. One additional week will be allotted to continue to run episodes. At the conclusion of this week, the leaderboard is final.
+The submitted probabilities for a given row are not required to sum to one because they are rescaled prior to being scored (each row is divided by the row sum). In order to avoid the extremes of the log function, each predicted probability p is replaced with max(min(p,1−10−15),10−15).
