@@ -1,4 +1,5 @@
 # ICR - Identifying Age-related Conditions
+![header](https://github.com/JamesSuryaPutra/ICR-Identifying-Age-related-Conditions/assets/155945814/a2e9604d-2762-4925-9e30-49375619ba7e)
 
 # Goal of the competition
 The goal of this competition is to predict if a person has any of three medical conditions. You are being asked to predict if the person has one or more of any of the three medical conditions (Class 1), or none of the three medical conditions (Class 0). You will create a model trained on measurements of health characteristics.
@@ -23,7 +24,8 @@ Submissions are evaluated using a balanced logarithmic loss. The overall effect 
 
 Each observation is either of class 0 or of class 1. For each observation, you must submit a probability for each class. The formula is then:
 
-Log Loss=−1N0∑N0i=1y0ilogp0i−1N1∑N1i=1y1ilogp1i2
+![balanced_logarithmic_loss](https://github.com/JamesSuryaPutra/ICR-Identifying-Age-related-Conditions/assets/155945814/57849c1a-3d8c-49b5-8f04-657c951a5412)
+
 
 where (N_{c}) is the number of observations of class (c), (\log) is the natural logarithm, (y_{c i}) is 1 if observation (i) belongs to class (c) and 0 otherwise, (p_{c i}) is the predicted probability that observation (i) belongs to class (c).
 
